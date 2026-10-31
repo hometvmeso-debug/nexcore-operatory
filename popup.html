@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEXCORE OPERATOR</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header><div class="logo">NEXCORE <b>OPERATOR</b></div><small>ANDROID ENGINE · V1</small></header>
+  <main>
+    <section class="card">
+      <div class="label">ONGLET ACTIF</div>
+      <h1 id="tab-title">Chargement…</h1>
+      <p id="tab-url" class="muted">Lecture de l'onglet actif</p>
+      <button id="inspect" class="secondary">Actualiser les informations</button>
+    </section>
+    <section class="card">
+      <div class="label">NAVIGATION</div>
+      <label for="url">Adresse web</label>
+      <input id="url" type="url" placeholder="https://example.com" inputmode="url">
+      <button id="open" class="primary">Ouvrir dans un nouvel onglet</button>
+    </section>
+    <p id="status" role="status">Prêt. Les actions sont déclenchées manuellement.</p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

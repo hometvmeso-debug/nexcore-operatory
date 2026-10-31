@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>NEXCORE OPERATOR</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./">NEXCORE <span>OPERATOR</span></a>
+    <span class="status"><i></i> LOCAL-FIRST</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">ANDROID · FIREFOX · GOOGLE</p>
+      <h1>Ton espace de<br><em>commande intelligent.</em></h1>
+      <p class="intro">Une interface web hébergée sur GitHub Pages, reliée à une extension Firefox qui agit dans ton navigateur. Pas de Cloudworker ni de serveur d'automatisation distant.</p>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <div class="panel-head"><span class="glyph">◎</span><span class="tag">NAVIGATEUR</span></div>
+        <h2>Firefox Engine</h2>
+        <p>Ouvre l'extension NEXCORE dans Firefox Android pour inspecter l'onglet actif ou naviguer vers une adresse.</p>
+        <div class="actions">
+          <a class="button primary" href="https://addons.mozilla.org/firefox/" target="_blank" rel="noreferrer">Trouver l'extension</a>
+        </div>
+        <p class="hint">L'extension doit être distribuée/signée via Mozilla Add-ons pour une installation normale sur Android.</p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><span class="glyph">G</span><span class="tag">GOOGLE</span></div>
+        <h2>Connecter Google</h2>
+        <p>Connexion OAuth. Les autorisations Google seront demandées progressivement, service par service.</p>
+        <div id="google-signin" class="actions">
+          <button class="button primary" id="connect-google">Connecter Google</button>
+          <button class="button subtle" id="disconnect-google" disabled>Déconnecter</button>
+        </div>
+        <p id="google-status" class="hint" aria-live="polite">Non connecté. Configure d'abord le client ID dans config.js.</p>
+      </article>
+    </section>
+
+    <section class="panel workspace">
+      <div class="panel-head"><span class="tag">CENTRE DE COMMANDE</span><span class="tag muted">APERÇU V1</span></div>
+      <h2>Préparer une tâche</h2>
+      <label for="task">Instruction</label>
+      <textarea id="task" rows="3" placeholder="Ex. : ouvre https://www.google.com"></textarea>
+      <div class="actions">
+        <button class="button primary" id="prepare-task">Analyser l'instruction</button>
+        <button class="button subtle" id="clear-task">Effacer</button>
+      </div>
+      <p id="task-result" class="hint" aria-live="polite">Cette première version prépare l'interface. L'exécution navigateur passe par l'extension Firefox.</p>
+    </section>
+
+    <footer> NEXCORE OPERATOR · V1.0.0 · Contrôle utilisateur et confidentialité d'abord.</footer>
+  </main>
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
