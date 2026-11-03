@@ -1,64 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEXCORE OPERATOR</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="logo">NEXCORE <b>OPERATOR</b></div>
+    <small>ANDROID ENGINE · V1.0.3</small>
+  </header>
 
-const $ = (id) => document.getElementById(id);
+  <main>
+    <section class="card">
+      <div class="label">ONGLET ACTIF</div>
+      <h1 id="tab-title">Chargement...</h1>
+      <p id="tab-url" class="muted">Lecture de l'onglet actif</p>
+      <button id="inspect" class="secondary">
+        Actualiser les informations
+      </button>
+    </section>
 
-async function refreshTab() {
-  try {
-    const tab = await browser.runtime.sendMessage({
-      type: "NEXCORE_GET_ACTIVE_TAB"
-    });
+    <section class="card">
+      <div class="label">NAVIGATION</div>
+      <label for="url">Adresse web</label>
+      <input id="url" type="url" placeholder="https://example.com">
+      <button id="open" class="primary">
+        Ouvrir dans un nouvel onglet
+      </button>
+    </section>
 
-    $("tab-title").textContent = tab?.title || "Titre indisponible";
-    $("tab-url").textContent = tab?.url || "Adresse indisponible";
-    $("status").textContent = "Onglet actualisé.";
-  } catch (error) {
-    $("status").textContent = "Erreur : " + error.message;
-  }
-}
+    <section class="card">
+      <div class="label">INTELLIGENCE DE PAGE</div>
+      <p class="muted">Analyser le contenu visible de la page active.</p>
+      <button id="read" class="primary">Lire cette page</button>
+      <h3 id="page-title"></h3>
+      <pre id="page-content">Aucune page analysée.</pre>
+    </section>
 
-$("inspect").addEventListener("click", refreshTab);
+    <p id="status" role="status">Prêt. En attente de commande.</p>
+  </main>
 
-$("open").addEventListener("click", async () => {
-  const raw = $("url").value.trim();
-
-  if (!raw) {
-    $("status").textContent = "Saisis une adresse web.";
-    return;
-  }
-
-  const normalized = /^https?:\/\//i.test(raw)
-    ? raw
-    : "https://" + raw;
-
-  try {
-    await browser.runtime.sendMessage({
-      type: "NEXCORE_OPEN_URL",
-      url: normalized
-    });
-
-    $("status").textContent = "Nouvel onglet ouvert.";
-  } catch (error) {
-    $("status").textContent = "Impossible d'ouvrir : " + error.message;
-  }
-});
-
-$("read").addEventListener("click", async () => {
-  $("status").textContent = "Lecture de la page en cours…";
-  $("page-content").textContent = "";
-
-  try {
-    const page = await browser.runtime.sendMessage({
-      type: "NEXCORE_READ_PAGE"
-    });
-
-    $("page-title").textContent = page.title || "Page sans titre";
-    $("page-content").textContent =
-      page.text || "Aucun texte visible trouvé.";
-
-    $("status").textContent = "Lecture terminée.";
-  } catch (error) {
-    $("page-content").textContent = "Lecture impossible.";
-    $("status").textContent = "Erreur : " + error.message;
-  }
-});
-
-refreshTab();
+  <script src="popup.js"></script>
+</body>
+</html>
