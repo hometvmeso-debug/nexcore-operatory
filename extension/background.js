@@ -1,14 +1,8 @@
-
-// NEXCORE OPERATOR - Background
-// Navigation et lecture locale des pages.
-
 browser.runtime.onInstalled.addListener(() => {
-  console.info("NEXCORE OPERATOR installé.");
+  console.log("NEXCORE OPERATOR est prêt.");
 });
 
 browser.runtime.onMessage.addListener(async (message) => {
-
-  // Récupérer l'onglet actif
   if (message?.type === "NEXCORE_GET_ACTIVE_TAB") {
     const tabs = await browser.tabs.query({
       active: true,
@@ -17,24 +11,22 @@ browser.runtime.onMessage.addListener(async (message) => {
     return tabs[0] || null;
   }
 
-  // Ouvrir une adresse web
   if (message?.type === "NEXCORE_OPEN_URL") {
-    let parsed;
+    let url;
 
     try {
-      parsed = new URL(message.url);
+      url = new URL(message.url);
     } catch {
       throw new Error("Adresse invalide.");
     }
 
-    if (!["http:", "https:"].includes(parsed.protocol)) {
-      throw new Error("Seules les adresses HTTP et HTTPS sont autorisées.");
+    if (!["http:", "https:"].includes(url.protocol)) {
+      throw new Error("Adresse non autorisée.");
     }
 
-    return browser.tabs.create({ url: parsed.href });
+    return browser.tabs.create({ url: url.href });
   }
 
-  // Lire le contenu de la page active
   if (message?.type === "NEXCORE_READ_PAGE") {
     const tabs = await browser.tabs.query({
       active: true,
@@ -43,12 +35,8 @@ browser.runtime.onMessage.addListener(async (message) => {
 
     const tab = tabs[0];
 
-    if (!tab?.id || !tab.url) {
-      throw new Error("Aucun onglet actif trouvé.");
-    }
-
-    if (!/^https?:\/\//i.test(tab.url)) {
-      throw new Error("Cette page ne peut pas être lue.");
+    if (!tab?.id || !tab.url?.startsWith("http")) {
+      throw new Error("Aucune page web accessible.");
     }
 
     const results = await browser.scripting.executeScript({
@@ -60,10 +48,6 @@ browser.runtime.onMessage.addListener(async (message) => {
       })
     });
 
-    return results?.[0]?.result || {
-      title: "",
-      url: tab.url,
-      text: ""
-    };
+    return results?.[0]?.result || null;
   }
 });
