@@ -1,9 +1,14 @@
+
 {
   "manifest_version": 3,
   "name": "NEXCORE OPERATOR",
-  "version": "1.0.0",
-  "description": "Assistant de navigation local pour Firefox Android.",
-  "permissions": ["activeTab", "tabs"],
+  "version": "1.0.3",
+  "description": "Assistant intelligent de navigation et d'automatisation pour Firefox Android.",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting"
+  ],
   "host_permissions": [],
   "action": {
     "default_title": "NEXCORE OPERATOR",
@@ -15,7 +20,10 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "nexcore-operator@example.org",
-      "strict_min_version": "128.0"
+      "strict_min_version": "140.0"
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
     }
   }
 }
