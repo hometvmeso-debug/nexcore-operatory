@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -7,7 +8,11 @@
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <header><div class="logo">NEXCORE <b>OPERATOR</b></div><small>ANDROID ENGINE · V1</small></header>
+  <header>
+    <div class="logo">NEXCORE <b>OPERATOR</b></div>
+    <small>ANDROID ENGINE · V1.0.3</small>
+  </header>
+
   <main>
     <section class="card">
       <div class="label">ONGLET ACTIF</div>
@@ -15,14 +20,25 @@
       <p id="tab-url" class="muted">Lecture de l'onglet actif</p>
       <button id="inspect" class="secondary">Actualiser les informations</button>
     </section>
+
     <section class="card">
       <div class="label">NAVIGATION</div>
       <label for="url">Adresse web</label>
       <input id="url" type="url" placeholder="https://example.com" inputmode="url">
       <button id="open" class="primary">Ouvrir dans un nouvel onglet</button>
     </section>
-    <p id="status" role="status">Prêt. Les actions sont déclenchées manuellement.</p>
+
+    <section class="card">
+      <div class="label">INTELLIGENCE DE PAGE</div>
+      <p class="muted">Analyser le contenu visible de l'onglet actif.</p>
+      <button id="read" class="primary">Lire cette page</button>
+      <h3 id="page-title"></h3>
+      <pre id="page-content">Aucune page analysée.</pre>
+    </section>
+
+    <p id="status" role="status">Prêt. En attente de commande.</p>
   </main>
+
   <script src="popup.js"></script>
 </body>
 </html>
